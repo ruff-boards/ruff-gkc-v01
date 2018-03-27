@@ -4,22 +4,22 @@
     "id": "ruff-kgc-v01",
     "model": "ruff-kgc-v01",
     "preloads": {
+        "an-0": "ADC/an-0",
+        "an-1": "ADC/an-1"
     },
     "outputs": {
-        "PL4": "PL4/gpio",
-        "PL5": "PL5/gpio",
+        "GPS_EN": "PL4/gpio",
+        "GPRS_EN": "PL5/gpio",
         "PL7": "PL7/gpio",
-        "PM7": "PM7/gpio",
-        "PN4": "PN4/gpio",
-        "PN5": "PN5/gpio",
-        "PP4": "PP4/gpio",
-        "PP5": "PP5/gpio",
-        "PQ3": "PQ3/gpio",
-        "UART0": "UART0/uart",
+        "DOUT0": "PN4/gpio",
+        "DOUT1": "PN5/gpio",
+        "DIN0": "PP4/gpio",
+        "DIN1": "PP5/gpio",
+        "GPS_UART": "UART0/uart",
         "UART2": "UART2/uart",
-        "UART3": "UART3/uart",
+        "GPRS_UART": "UART3/uart",
         "RS485": "RS485/rs485",
-        "UART6": "UART6/uart",
+        "RS232": "UART6/uart",
         "an-0": "ADC/an-0",
         "an-1": "ADC/an-1"
     },
@@ -445,7 +445,7 @@
             }
         },
         {
-            "id": "UART2",
+            "id": "UART3",
             "model": "ruff-uart",
             "driver": "mcu-uart",
             "inputs": {
@@ -463,24 +463,6 @@
             }
         },
         {
-            "id": "UART3",
-            "model": "ruff-uart",
-            "driver": "mcu-uart",
-            "inputs": {
-                "device": {
-                    "type": "string",
-                    "args": {
-                        "path": "/dev/ttyS3"
-                    }
-                }
-            },
-            "outputs": {
-                "uart": {
-                    "type": "uart"
-                }
-            }
-        },
-        {
             "id": "RS485",
             "model": "rs485",
             "driver": "mcu-uart",
@@ -488,7 +470,7 @@
                 "device": {
                     "type": "string",
                     "args": {
-                        "path": "/dev/ttyS4"
+                        "path": "/dev/ttyS3"
                     }
                 },
                 "gpio": {
@@ -519,7 +501,7 @@
                 "device": {
                     "type": "string",
                     "args": {
-                        "path": "/dev/ttyS5"
+                        "path": "/dev/ttyS4"
                     }
                 }
             },
@@ -670,6 +652,38 @@
                         "direction": "out",
                         "level": "low",
                         "activeLow": false
+                    }
+                }
+            }
+        },
+        {
+            "id": "WDG",
+            "model": "ruff-led-gpio",
+            "driver": "led-gpio",
+            "inputs": {
+                "gpio": {
+                    "type": "gpio",
+                    "bind": "PQ3/gpio",
+                    "args": {
+                        "direction": "out",
+                        "level": "low",
+                        "activeLow": false
+                    }
+                }
+            }
+        },
+        {
+            "id": "WDG_EN",
+            "model": "ruff-led-gpio",
+            "driver": "led-gpio",
+            "inputs": {
+                "gpio": {
+                    "type": "gpio",
+                    "bind": "PM7/gpio",
+                    "args": {
+                        "direction": "out",
+                        "level": "low",
+                        "activeLow": true
                     }
                 }
             }
